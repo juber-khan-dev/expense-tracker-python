@@ -13,8 +13,28 @@ CREATE A TABLE IF NOT EXIST expenses (
 connection.commit()
 
 def add_expense():
-  # This function will take input and store expense in database 
-  pass
+  #ask user for expense amount
+  amount = float(input("Enter Amount: "))
+  #ask user for expense category
+  category = input("Enter Category: ")
+  #ask user for date (example : 2025-01-01)
+  date = input("Enter Date (YYYY-MM-DD): ")
+  #ask user for any short note
+  note = input("Enter note: ")
+
+  #SQL query to insert data into expenses table
+  insert query = """
+  INSERT INTO EXPENSES (amount , category , date , note)
+  VALUES (?,?,?,?)
+  """
+
+  #Execute the SQL query with user data 
+  cursor.execute(insert_query, (amount, category, date, note))
+
+  #save changes to database
+  connection.commit()
+
+  print("Expense Added Successfully.")  
 
 def view_expenses():
   # This function will fetch and display all expenses
