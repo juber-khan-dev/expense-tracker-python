@@ -64,3 +64,30 @@ while true:
     print("Invalid Choice")
 
 connection.close()
+
+
+def view_expenses():
+    # SQL query to read all expense records
+    cursor.execute("SELECT * FROM expenses")
+
+    # Fetch all rows returned by query
+    expenses = cursor.fetchall()
+
+    # If database is empty
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    # Print column headers
+    print("\nID | Amount | Category | Date | Note")
+    print("-" * 40)
+
+    # Loop through each row (tuple)
+    for expense in expenses:
+        expense_id = expense[0]
+        amount = expense[1]
+        category = expense[2]
+        date = expense[3]
+        note = expense[4]
+
+        print(f"{expense_id} | {amount} | {category} | {date} | {note}")
