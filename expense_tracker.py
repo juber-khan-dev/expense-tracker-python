@@ -91,3 +91,20 @@ def view_expenses():
         note = expense[4]
 
         print(f"{expense_id} | {amount} | {category} | {date} | {note}")
+
+
+def total_expense():
+    # SQL query to calculate total amount spent
+    cursor.execute("SELECT SUM(amount) FROM expenses")
+
+    # Fetch result (it returns one row)
+    result = cursor.fetchone()
+
+    # result is a tuple like (total_amount,)
+    total = result[0]
+
+    # If no expenses exist
+    if total is None:
+        print("No expenses found.")
+    else:
+        print(f"Total expense is: {total}")
