@@ -108,3 +108,23 @@ def total_expense():
         print("No expenses found.")
     else:
         print(f"Total expense is: {total}")
+
+def category_wise_expense():
+    # Calculate total expense per category
+    cursor.execute("""
+    SELECT category, SUM(amount)
+    FROM expenses
+    GROUP BY category
+    """)
+
+    results = cursor.fetchall()
+
+    if not results:
+        print("No expenses found.")
+        return
+
+    print("\nCategory | Total Amount")
+    print("-" * 30)
+
+    for row in results:
+        print(f"{row[0]} | {row[1]}")
