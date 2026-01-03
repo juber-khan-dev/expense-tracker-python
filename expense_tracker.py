@@ -128,3 +128,18 @@ def category_wise_expense():
 
     for row in results:
         print(f"{row[0]} | {row[1]}")
+
+def expenses_by_category(category_name):
+    cursor.execute(
+        "SELECT id, amount, category, date, note FROM expenses WHERE category = ?",
+        (category_name,)
+    )
+
+    results = cursor.fetchall()
+
+    if not results:
+        print("No expenses found for this category.")
+        return
+
+    for row in results:
+        print(row)
