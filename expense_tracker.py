@@ -143,3 +143,20 @@ def expenses_by_category(category_name):
 
     for row in results:
         print(row)
+
+def highest_spending_category():
+    cursor.execute("""
+    SELECT category, SUM(amount) AS total
+    FROM expenses
+    GROUP BY category
+    ORDER BY total DESC
+    LIMIT 1
+    """)
+
+    result = cursor.fetchone()
+
+    if result:
+        print(f"Highest spending category: {result[0]}")
+        print(f"Total spent: {result[1]}")
+    else:
+        print("No expenses found.")
