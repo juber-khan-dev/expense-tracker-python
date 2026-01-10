@@ -160,3 +160,15 @@ def highest_spending_category():
         print(f"Total spent: {result[1]}")
     else:
         print("No expenses found.")
+
+def monthly_expense(month_prefix):
+    cursor.execute(
+        "SELECT SUM(amount) FROM expenses WHERE date LIKE ?",
+        (month_prefix + '%',)
+    )
+
+    result = cursor.fetchone()
+    if result and result[0]:
+        print(f"Total expense for {month_prefix}: {result[0]}")
+    else:
+        print("No expenses found.")
