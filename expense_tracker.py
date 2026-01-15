@@ -199,3 +199,34 @@ def monthly_summary(month_prefix):
 
     print(f"Total expense for {month_prefix}: {total}")
     print(f"Most spending category: {category} ({amount})")
+
+def get_monthly_summary(month_prefix):
+    cursor.execute(
+        "SELECT SUM(amount) FROM expenses WHERE date LIKE ?",
+        (month_prefix + '%',)
+    )
+    total = cursor.fetchone()[0]
+
+    if total is None:
+        return None
+
+    cursor.execute(
+        """
+        SELECT category, SUM(amount)
+        FROM expenses
+        WHERE date LIKE ?
+        GROUP BY category
+        ORDER BY SUM(amount) DESC
+        LIMIT 1
+        """,
+        (month_prefix + '%',)
+    )
+
+    category, amount = cursor.fetchone()
+
+    return {
+        "month": month_prefix,
+        "total_expense": total,
+        "top_category": category,
+        "top_category_amount": amount
+    }
