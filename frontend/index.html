@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Expense Tracker</title>
+</head>
+<body>
+	<h2> Monthly Expense Summary</h2>
+
+	<div id="summary"></div>
+ 	
+	<script>
+		// Simulated backend response
+		const apiResponse = {
+			'month': '2026-01',
+			'total_expense': 5000.0,
+			'top_category': 'trip',
+			'top_category_amount': 5000.0
+			}	
+
+	const summaryDiv = document.getElementById("summary");
+
+        summaryDiv.innerHTML = `
+            <p><strong>Month:</strong> ${apiResponse.month}</p>
+            <p><strong>Total Expense:</strong> ₹${apiResponse.total_expense}</p>
+            <p><strong>Top Category:</strong> ${apiResponse.top_category}</p>
+            <p><strong>Amount Spent:</strong> ₹${apiResponse.top_category_amount}</p>
+        `;
+   	 </script>
+
+</body>
+</html>
